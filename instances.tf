@@ -6,6 +6,7 @@ resource "aws_key_pair" "example-server-keypair" {
 resource "aws_instance" "example-server" {
   ami                         = var.ami
   instance_type               = var.instance_type
+  subnet_id                   = var.subnet_id
   key_name                    = aws_key_pair.example-server-keypair.key_name
   associate_public_ip_address = var.attach_public_ip
   disable_api_termination     = false
