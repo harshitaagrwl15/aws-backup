@@ -1,0 +1,213 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": [
+                "ec2:CopySnapshot"
+            ],
+            "Resource": "arn:aws:ec2:*::snapshot/*"
+        },
+        {
+            "Effect": "Allow",
+            "Action": [
+                "ec2:CopyImage"
+            ],
+            "Resource": "*"
+        },
+        {
+            "Effect": "Allow",
+            "Action": [
+                "ec2:CreateTags",
+                "ec2:DeleteSnapshot"
+            ],
+            "Resource": "arn:aws:ec2:*::snapshot/*"
+        },
+        {
+            "Effect": "Allow",
+            "Action": [
+                "ec2:CreateImage",
+                "ec2:DeregisterImage"
+            ],
+            "Resource": "*"
+        },
+        {
+            "Effect": "Allow",
+            "Action": [
+                "ec2:CreateTags"
+            ],
+            "Resource": "arn:aws:ec2:*:*:image/*"
+        },
+        {
+            "Effect": "Allow",
+            "Action": [
+                "ec2:DescribeSnapshots",
+                "ec2:DescribeTags",
+                "ec2:DescribeImages",
+                "ec2:DescribeInstances",
+                "ec2:DescribeInstanceAttribute",
+                "ec2:DescribeInstanceCreditSpecifications",
+                "ec2:DescribeNetworkInterfaces",
+                "ec2:DescribeElasticGpus",
+                "ec2:DescribeSpotInstanceRequests"
+            ],
+            "Resource": "*"
+        },
+        {
+            "Effect": "Allow",
+            "Action": [
+                "ec2:ModifySnapshotAttribute",
+                "ec2:ModifyImageAttribute"
+            ],
+            "Resource": "*",
+            "Condition": {
+                "Null": {
+                    "aws:ResourceTag/aws:backup:source-resource": "false"
+                }
+            }
+        },
+        {
+            "Effect": "Allow",
+            "Action": [
+                "backup:DescribeBackupVault",
+                "backup:CopyIntoBackupVault"
+            ],
+            "Resource": "arn:aws:backup:*:*:backup-vault:*"
+        },
+        {
+            "Effect": "Allow",
+            "Action": [
+                "backup:CopyFromBackupVault"
+            ],
+            "Resource": "*"
+        },
+        {
+            "Effect": "Allow",
+            "Action": [
+                "elasticfilesystem:Backup",
+                "elasticfilesystem:DescribeTags"
+            ],
+            "Resource": "arn:aws:elasticfilesystem:*:*:file-system/*"
+        },
+        {
+            "Effect": "Allow",
+            "Action": [
+                "ec2:CreateSnapshot",
+                "ec2:DeleteSnapshot",
+                "ec2:DescribeVolumes",
+                "ec2:DescribeSnapshots"
+            ],
+            "Resource": [
+                "arn:aws:ec2:*::snapshot/*",
+                "arn:aws:ec2:*:*:volume/*"
+            ]
+        },
+        {
+            "Effect": "Allow",
+            "Action": [
+                "kms:Decrypt",
+                "kms:GenerateDataKey"
+            ],
+            "Resource": "*",
+            "Condition": {
+                "StringLike": {
+                    "kms:ViaService": [
+                        "dynamodb.*.amazonaws.com"
+                    ]
+                }
+            }
+        },
+        {
+            "Effect": "Allow",
+            "Action": "kms:DescribeKey",
+            "Resource": "*"
+        },
+        {
+            "Effect": "Allow",
+            "Action": "kms:CreateGrant",
+            "Resource": "*",
+            "Condition": {
+                "Bool": {
+                    "kms:GrantIsForAWSResource": "true"
+                }
+            }
+        },
+        {
+            "Effect": "Allow",
+            "Action": [
+                "kms:GenerateDataKeyWithoutPlaintext"
+            ],
+            "Resource": "arn:aws:kms:*:*:key/*",
+            "Condition": {
+                "StringLike": {
+                    "kms:ViaService": [
+                        "ec2.*.amazonaws.com"
+                    ]
+                }
+            }
+        },
+        {
+            "Effect": "Allow",
+            "Action": [
+                "tag:GetResources"
+            ],
+            "Resource": "*"
+        },
+        {
+            "Effect": "Allow",
+            "Action": [
+                "ssm:CancelCommand",
+                "ssm:GetCommandInvocation"
+            ],
+            "Resource": "*"
+        },
+        {
+            "Effect": "Allow",
+            "Action": "ssm:SendCommand",
+            "Resource": [
+                "arn:aws:ssm:*:*:document/AWSEC2-CreateVssSnapshot",
+                "arn:aws:ec2:*:*:instance/*"
+            ]
+        },
+        {
+            "Effect": "Allow",
+            "Action": [
+                "timestream:StartAwsBackupJob",
+                "timestream:GetAwsBackupStatus",
+                "timestream:ListTables",
+                "timestream:ListDatabases",
+                "timestream:ListTagsForResource",
+                "timestream:DescribeTable",
+                "timestream:DescribeDatabase"
+            ],
+            "Resource": [
+                "arn:aws:timestream:*:*:database/*"
+            ]
+        },
+        {
+            "Effect": "Allow",
+            "Action": [
+                "timestream:DescribeEndpoints"
+            ],
+            "Resource": "*"
+        },
+        {
+            "Effect": "Allow",
+            "Action": [
+                "ssm-sap:GetOperation",
+                "ssm-sap:ListDatabases"
+            ],
+            "Resource": "*"
+        },
+        {
+            "Effect": "Allow",
+            "Action": [
+                "ssm-sap:BackupDatabase",
+                "ssm-sap:UpdateHanaBackupSettings",
+                "ssm-sap:GetDatabase",
+                "ssm-sap:ListTagsForResource"
+            ],
+            "Resource": "arn:aws:ssm-sap:*:*:*"
+        }
+    ]
+}

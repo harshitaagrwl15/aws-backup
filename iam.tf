@@ -51,11 +51,13 @@ resource "aws_iam_role_policy" "example-backup-service-aws-backup-role-policy" {
 }
 
 resource "aws_iam_role_policy" "example-restore-service-aws-backup-role-policy" {
-  policy = data.aws_iam_policy.aws-restore-service-policy.policy
+  #policy = data.aws_iam_policy.aws-restore-service-policy.policy
+  policy = file("serviceRolePolicyForBackup.json")
   role   = aws_iam_role.example-aws-backup-service-role.name
 }
 
-# resource "aws_iam_role_policy" "example-backup-service-pass-role-policy" {
-#   policy = data.aws_iam_policy_document.example-pass-role-policy-doc.json
-#   role   = aws_iam_role.example-aws-backup-service-role.name
-# }
+resource "aws_iam_role_policy" "example-backup-service-pass-role-policy" {
+  #policy = data.aws_iam_policy_document.example-pass-role-policy-doc.json
+  policy = file("serviceRolePolicyFor Restore.json")
+  role   = aws_iam_role.example-aws-backup-service-role.name
+}
