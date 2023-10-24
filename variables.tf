@@ -1,10 +1,10 @@
 variable "project" {}
 variable "region" {}
 variable "profile" {}
-variable "subnet_id" {}
 variable "ami" {}
 variable "instance_type" {}
-#variable "public_key" {}
+variable "vpc_id" {}
+variable "subnet_id" {}
 variable "attach_public_ip" {
   type = bool
 }
